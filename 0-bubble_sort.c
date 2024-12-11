@@ -1,49 +1,33 @@
 #include "sort.h"
-
 /**
- * swap_ints - Swap two integers in an array.
- * @a: The first integer to swap.
- * @b: The second integer to swap.
- */
-void swap_ints(int *a, int *b)
-{
-	int temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-/**
- * bubble_sort - Sort an array of integers in ascending order.
- * @array: Array of integers to sort.
- * @size: The size of the array.
- *
- * Description: Prints the array after each time you swap.
+ * bubble_sort - sort an array of integers
+ * @array: integer array
+ * @size: array size
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, len = size;
-	bool flag = false;
+	size_t i, newsize = size;
+	int tmp, swap;
 
 	if (array == NULL || size < 2)
 		return;
 
-	while (flag == false)/*false: continue tant qu'il y a des échanges*/
+	while (newsize)
 	{
-		flag = true;/*si pas d'échange flag restera a true et fin de boucle*/
-		for (i = 0; i < len - 1; i++) /*-1 evite de dépasser limite du tableau*/
+		swap = 0;
+		for (i = 0; i < newsize - 1; i++)
 		{
-			if (array[i] > array[i + 1]) /* si élément actuel > que le suivant*/
+			if (array[i] > array[i + 1])
 			{
-				swap_ints(array + i, array + i + 1);
-				/*fonction swap_ints pour swapper 2 élements*/
-				/*+ i 1er élément a échanger-->> + i + 1 élément suivant*/
+				tmp = array[i + 1];
+				array[i + 1] = array[i];
+				array[i] = tmp;
 				print_array(array, size);
-				flag = false;
-				/* false: indique echange a eu lieu*/
+				swap = 1;
 			}
 		}
-		len--;
+		newsize--;
+		if (!swap)
+			break;
 	}
 }
