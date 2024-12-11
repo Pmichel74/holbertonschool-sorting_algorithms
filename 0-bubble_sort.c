@@ -14,20 +14,22 @@ void bubble_sort(int *array, size_t size)
 
 	while (len)
 	{
-		swap = 0;
-		for (i = 0; i < len - 1; i++)
+		swap = 0;/*reinitialisé a 0 chaque passage*/
+		for (i = 0; i < len - 1; i++)/*-1 evite de dépasser limite du tableau*/
 		{
-			if (array[i] > array[i + 1])
+			if (array[i] > array[i + 1])/* si élément actuel > que le suivant*/
 			{
 				tmp = array[i + 1];
+				/*Déplace l'élément de gauche (i) vers la droite*/
 				array[i + 1] = array[i];
+				/*Place la valeur temporaire à la position de gauche*/
 				array[i] = tmp;
 				print_array(array, size);
-				swap = 1;
+				swap = 1;/*indique qu'il ya eu echange*/
 			}
 		}
 		len--;
-		if (!swap)
+		if (swap == 0)
 			break;
 	}
 }
