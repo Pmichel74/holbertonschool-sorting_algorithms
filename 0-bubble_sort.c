@@ -6,16 +6,16 @@
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, newsize = size;
+	size_t i, len = size;
 	int tmp, swap;
 
 	if (array == NULL || size < 2)
 		return;
 
-	while (newsize)
+	while (len)
 	{
 		swap = 0;
-		for (i = 0; i < newsize - 1; i++)
+		for (i = 0; i < len - 1; i++)
 		{
 			if (array[i] > array[i + 1])
 			{
@@ -26,7 +26,7 @@ void bubble_sort(int *array, size_t size)
 				swap = 1;
 			}
 		}
-		newsize--;
+		len--;
 		if (!swap)
 			break;
 	}
