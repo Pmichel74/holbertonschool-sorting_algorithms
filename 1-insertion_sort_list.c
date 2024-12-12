@@ -2,40 +2,41 @@
 
 /**
  * insertion_sort_list - sorts a linked list using insertion sort
- *
- * @list: the address of a pointer to the head of a list
+ *@list: the address of a pointer to the head of a list
  */
-
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *n1, *n2;
+	listint_t *swap_node, *next_swap;
 
 	if (list == NULL || *list == NULL)
 		return;
 
-	n1 = (*list)->next;
+	swap_node = (*list)->next;
 
-	while (n1)
+	while (swap_node)
 	{
-		n2 = n1->next;/* boucle commence au 2eme élément*/
+		next_swap = swap_node->next;/* boucle commence au 2eme élément*/
 		/* check si noeud actuel est le 1e de la liste*/
 		/* la valeur du noeud precedent > a celle du noeud actuel*/
-		while (n1->prev != NULL && n1->prev->n > n1->n)
-		n1->prev->next = n1->next;/*A <-> n1 <-> B*/ /*après: A-->B(n1)*/
+		while (swap_node->prev != NULL && swap_node->prev->n > swap_node->n)
+		/*A <-> swap_node <-> B*/ /*après: A-->B(swap_node)*/
+		swap_node->prev->next = swap_node->next;
 
-				if (n1->next)
-				n1->next->prev = n1->prev;
+				if (swap_node->next)
+				swap_node->next->prev = swap_node->prev;
 
-			n1->next = n1->prev;/*next de n1 vers son noeud précédent*/
-			n1->prev = n1->next->prev;/*place n1 avant son ancien précédent*/
-			n1->next->prev = n1;/*complète l'insertion de n1 à sa nouvelle position.*/
+			swap_node->next = swap_node->prev;
+			/*next de swap_node vers son noeud précédent*/
+			swap_node->prev = swap_node->next->prev;
+			/*place swap_node avant son ancien précédent*/
+			swap_node->next->prev = swap_node;
+			/*complète l'insertion de swap_node à sa nouvelle position.*/
 
-			if (!n1->prev)/*verifie si n1 est devenu 1er élément*/
-				*list = n1;/*maj pointeur de tete pour pointer vers n1*/
+			if (!swap_node->prev)/*verifie si swap_node est devenu 1er élément*/
+				*list = swap_node;/*maj pointeur de tete pour pointer vers swap_node*/
 			else
-				n1->prev->next = n1;/*si n1 pas 1er élément*/
+				swap_node->prev->next = swap_node;/*si swap_node pas 1er élément*/
 			print_list(*list);/*affiche liste après chaque insertion*/
 		}
-		n1 = n2;/*fait avancer n1 au prochain noeud*/
+		swap_node = next_swap;/*fait avancer swap_node au prochain noeud*/
 	}
-
